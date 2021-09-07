@@ -1,10 +1,10 @@
 # VotingScore
 
-VotingScore is a reputation score that represents the voting participation of an account based solely on its voting history data that is provided by boardroom's API.
+VotingScore is a reputation score that represents the voting participation of an account based solely on its voting history data that is provided by [Boardroom API](https://docs.boardroom.info/boardroom-api/boardroom-api).
 
 There are many different methods to calculate reputation scores. Most of them are based on the contribution of user on other platforms and the whole ecosystem, but VotingScore model tries to calculate a score based on a user's voting activity in DAOs.
 
-A python implementation of this method is provided as a proof of concept. But, this method can be easily implemented in other languages, or served as an standalone API or (in best case scenario) be integrated into Boardroom's API.
+A python implementation of this method is provided as a proof of concept. But, this method can be easily implemented in other languages, or served as an standalone API or (in best case scenario) be integrated into Boardroom API.
 
 ## How to calculate such score?
 
@@ -26,6 +26,7 @@ To calculate score of each vote we apply decreasing exponential decay function t
 The reason to use exponential function here is the value of a vote cast yesterday is a lot more than value of a vote cast last month, but the value of a vote cast a year ago is just a little more than value of a vote cast 13 months ago.
 
 This function has a shape like this:
+
 ![decreasing exponential decay](https://people.richland.edu/james/lecture/m116/logs/decay.gif)
 
 
@@ -35,6 +36,7 @@ To calculate the diversity multiplier we apply an increasing exponential functio
 The reason to use exponential function here is the value of participating in 5 protocols is a lot more than value of participating in 1 protocol, but the value of participating in 105 protocols is just a little more than value of participating in 101 protocols.
 
 This function has a shape like this:
+
 ![increasing exponential decay](https://people.richland.edu/james/lecture/m116/logs/decay2.gif)
 
 
@@ -79,11 +81,11 @@ There is a constant named `VERBOSE` in the code. Which can be set to `True` to p
 ## Notes
 
 * This is a dynamic score and changes over time even for same inputs. Because it uses the current time in calculations.
-* All the timestamps received from Boardroom's API are considered to be in UTC timezone.
+* All the timestamps received from Boardroom API are considered to be in UTC timezone.
 * Maximum possible score an address can get is equal to `number of protocols available in Boardroom * MAX_SCORE_PER_PROTOCOL`. Which is currently equal to `62 * 100 = 6200`.
 
 ## Future works
 
 * There is always room for improvements. This is the first thing that came to my mind when I tried to tackle this problem.
-* Can be integrated into Boardroom's API or dashboard.
+* Can be integrated into Boardroom API or dashboard.
 * A new score can be calculated for proposals by aggregating the VotingScore of its voters. This score can represents the legitimacy of a proposal. Same idea applies for a new score for protocols too. Currently, there are more than 37000 unique voters on Boardroom and this amount of requests for getting their voting data is not feasible for a standalone project. But, this can be achieved if we implement it as a feature in Boardroom's codebase.
