@@ -76,6 +76,8 @@ Then run the code using this command and give address (or addresses) as command 
 python voting_score.py 0x000...
 ```
 
+The code is tested with `Python 3.8.10`.
+
 There is a constant named `VERBOSE` in the code. Which can be set to `True` to print the diversity multiplier and score of each protocol separately.
 
 ## Notes
