@@ -91,11 +91,11 @@ def voting_score(address):
     now_timestamp = datetime.utcnow().timestamp() # use same now_timestamp for all votes for sake of consistency
     for protocol in votes:
         score = protocol_score(now_timestamp, votes[protocol])
-        if VERBOSE: print("{}: {}".format(protocol, score))
+        if VERBOSE: print(f"{protocol}: {score}")
         total_vote_scores += score
 
     multiplier = diversity_multiplier(len(votes))
-    if VERBOSE: print("Diversity Multiplier: {}".format(multiplier))
+    if VERBOSE: print(f"Diversity Multiplier: {multiplier}")
     final_score = total_vote_scores * multiplier
     return final_score
 
@@ -107,6 +107,6 @@ if __name__ == "__main__":
        print("input address as an argument")
 
    for address in addresses:
-       print("Address: {}".format(address))
+       print(f"Address: {address}")
        score = voting_score(address)
-       print("Voting Score: {}\n".format(round(score, 2)))
+       print(f"Voting Score: {round(score, 2)}\n")
